@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Before You Build | Audit Report</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <style>
+	html {
+            scrollbar-gutter: stable;
+	}
+        /* GIỮ NGUYÊN TOÀN BỘ STYLE GỐC CỦA ÔNG */
+        body { background-color: #050505; font-family: 'Inter', sans-serif; color: #e5e7eb; min-height: 100vh; display: flex; flex-direction: column; position: relative; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .glass-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); padding: 2.5rem; border-radius: 4px; position: relative; overflow: hidden; backdrop-filter: blur(20px); }
+        .card-tag { position: absolute; top: -1px; left: 20px; background: #A855F7; color: white; font-size: 9px; font-family: 'JetBrains Mono'; padding: 2px 12px; font-weight: bold; text-transform: uppercase; }
+        .label-mono { font-size: 0.75rem !important; font-family: 'JetBrains Mono'; text-transform: uppercase; letter-spacing: 0.2em; color: #4b5563; }
+        .bg-impossible { position: absolute; right: -20px; bottom: -20px; font-size: 10rem; font-weight: 900; color: rgba(255,255,255,0.03); line-height: 1; pointer-events: none; text-transform: uppercase; font-style: italic; }
+        .btn-unlock { position: relative; overflow: hidden; background: transparent; border: 2px solid #A855F7; color: #A855F7; z-index: 1; transition: color 0.4s; width: 100%; max-width: 400px; padding: 1.25rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; }
+        .btn-unlock::before { content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: #A855F7; transition: all 0.4s; z-index: -1; }
+        .btn-unlock:hover { color: white; }
+        .btn-unlock:hover::before { left: 0; }
+        .chart-wrapper { height: 380px; width: 100%; position: relative; }
+        .critical-red { color: #ef4444 !important; }
+        .ai-border { border: 1px solid transparent; background: linear-gradient(#050505, #050505) padding-box, linear-gradient(to right, #A855F7, #06b6d4) border-box; }
+        .scanline { position: absolute; width: 100%; height: 2px; background: rgba(168, 85, 247, 0.2); animation: scan 3s linear infinite; }
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+        
+        /* Starfield Background */
+        #starfield { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+        .star { position: absolute; background: white; border-radius: 50%; opacity: 0; }
+    </style>
+</head>
+<body class="flex flex-col">
+    <div id="starfield"></div>
+
+    <nav class="w-full p-6 md:px-12 flex justify-between items-center border-b border-white/10 backdrop-blur-md h-[80px] sticky top-0 z-50 bg-black/90">
+    <div class="text-2xl font-black tracking-tighter text-white uppercase cursor-pointer" onclick="location.href='index.html'">
+        Before <span class="text-purple-500">You</span> Build
+    </div>
+    
+    <div class="flex items-center gap-4 bg-purple-500/10 px-4 py-2 rounded border border-purple-500/30">
+        <div class="h-2 w-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_#22c55e]"></div>
+        <div class="text-[10px] mono text-purple-300 tracking-widest uppercase font-bold">Diagnostic Core: Online</div>
+    </div>
+    </nav>
+
+    <main class="flex-1 max-w-6xl mx-auto px-6 w-full py-12 space-y-8">
+        <div class="glass-card">
+            <span class="card-tag">Product Profile</span>
+            <div class="grid md:grid-cols-12 gap-10 pt-4">
+                <div class="md:col-span-7 space-y-6 text-left">
+                    <h1 class="text-5xl md:text-6xl font-black uppercase text-white tracking-tighter italic">Project Unicorn</h1>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div><p class="label-mono mb-1 text-[10px]">Battlefield</p><p class="text-lg font-bold uppercase">Mass Market</p></div>
+                        <div><p class="label-mono mb-1 text-[10px]">Platform</p><p class="text-lg font-bold uppercase">Cross-platform</p></div>
+                        <div><p class="label-mono mb-1 text-[10px]">Monetization</p><p class="text-lg font-bold uppercase">IAP / Live-Ops</p></div>
+                        <div><p class="label-mono mb-1 text-[10px]">Archetype</p><p class="text-lg font-bold uppercase text-purple-400">The Avengers</p></div>
+                    </div>
+                </div>
+                <div class="md:col-span-5 bg-white/5 p-6 rounded border border-white/5 space-y-4 text-left self-center">
+                    <p class="label-mono">Human Resource Info</p>
+                    <div class="space-y-3">
+                        <div class="flex justify-between border-b border-white/5 pb-1"><span class="text-gray-500 mono text-[11px]">Team Size</span><span class="font-bold">12 Active Roles</span></div>
+                        <div class="flex justify-between border-b border-white/5 pb-1"><span class="text-gray-500 mono text-[11px]">Velocity</span><span class="font-bold text-purple-400">85h/Point</span></div>
+                        <div class="flex justify-between border-b border-white/5 pb-1"><span class="text-gray-500 mono text-[11px]">Original Est.</span><span class="font-bold">18 Months</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <span class="card-tag">Financial & Timeline Audit</span>
+            <div class="grid lg:grid-cols-12 gap-10 pt-4">
+                <div class="lg:col-span-6"><div class="chart-wrapper"><canvas id="auditChart"></canvas></div></div>
+                <div class="lg:col-span-6 bg-white/5 p-8 flex flex-col justify-center space-y-12 text-left">
+                    <div>
+                        <p class="label-mono mb-2">The Gap (Capital)</p>
+                        <p class="text-7xl font-black critical-red italic tracking-tighter">+$185,000</p>
+                        <p class="text-xs mono text-gray-500 mt-2 uppercase tracking-widest">Audit Reality <span class="text-white font-bold">$420k</span> vs Estimate <span class="text-white font-bold">$235k</span></p>
+                    </div>
+                    <div>
+                        <p class="label-mono mb-2">The Gap (Timeline)</p>
+                        <p class="text-7xl font-black critical-red italic tracking-tighter">+14 Months</p>
+                        <p class="text-xs mono text-gray-500 mt-2 uppercase tracking-widest">Audit Reality <span class="text-white font-bold">32 Mo.</span> vs Estimate <span class="text-white font-bold">18 Mo.</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <span class="card-tag">The Hard Truths</span>
+            <div class="grid md:grid-cols-3 gap-10 text-left pt-4">
+                <div class="space-y-4">
+                    <p class="text-red-500 mono font-black text-[11px] uppercase border-b border-red-500/20 pb-1">/ Content Hunger vs. Staff</p>
+                    <p class="text-sm text-gray-400 leading-relaxed">You selected 'Infinite' live-ops but your Art Team is under-scaled. You will run out of content by Week 4, leading to immediate player churn.</p>
+                </div>
+                <div class="space-y-4 md:border-l border-white/5 md:pl-8">
+                    <p class="text-red-500 mono font-black text-[11px] uppercase border-b border-red-500/20 pb-1">/ Technology Debt</p>
+                    <p class="text-sm text-gray-400 leading-relaxed">Complex Multiplayer logic with Junior developers will lead to a 'Freeze State' by Month 8. Technical debt will consume 70% of your remaining budget.</p>
+                </div>
+                <div class="space-y-4 md:border-l border-white/5 md:pl-8">
+                    <p class="text-red-500 mono font-black text-[11px] uppercase border-b border-red-500/20 pb-1">/ Visual Fidelity Gap</p>
+                    <p class="text-sm text-gray-400 leading-relaxed">AAA standard visuals on a 'Standard' budget is a delusion. Your target market will reject the product based on low production polish.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card ai-border">
+            <div class="scanline"></div>
+            <span class="card-tag !bg-cyan-500">AI Neural Diagnostic</span>
+            <div class="pt-6 space-y-8 text-left relative z-10">
+                <div class="grid md:grid-cols-12 gap-8 items-start">
+                    <div class="md:col-span-4">
+                        <div class="p-4 bg-cyan-500/5 border border-cyan-500/20 rounded">
+                            <p class="label-mono !text-cyan-400 mb-2">Ambition Audit</p>
+                            <p class="text-xs text-gray-300 leading-relaxed italic uppercase font-bold tracking-tight">"The Vision outpaces the infrastructure. You are building a skyscraper on a foundation designed for a garden shed."</p>
+                        </div>
+                    </div>
+                    <div class="md:col-span-8">
+                        <div class="space-y-6">
+                            <div>
+                                <p class="label-mono mb-2">Bottleneck Fear Analysis: <span class="text-white">Capital Exhaustion</span></p>
+                                <p class="text-sm text-gray-400 leading-relaxed">Your concern regarding capital is mathematically justified. Our cross-reference with Genre DNA reveals that by Month 7, Technical Debt will surge by 40%, likely exhausting liquid reserves before reaching the Alpha milestone.</p>
+                            </div>
+                            <div class="p-4 border-l-2 border-cyan-500 bg-white/5">
+                                <p class="label-mono text-cyan-400 mb-1">Deep Insight</p>
+                                <p class="text-sm italic font-medium">"Innovation Level 5 is the primary fracture point. Focus on a single core mechanic shift to reduce complexity by 60% without compromising the project's ambition."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card bg-red-600 border-none py-16">
+            <div class="bg-impossible">IMPOSSIBLE</div>
+            <div class="grid md:grid-cols-12 gap-8 items-center text-left relative z-10 px-4">
+                <div class="md:col-span-7 space-y-4">
+                    <p class="label-mono text-red-200 uppercase font-black">System Verdict</p>
+                    <h2 class="text-7xl font-black text-white uppercase tracking-tighter italic">Kill the Project</h2>
+                    <p class="text-lg text-red-100 font-medium max-w-lg leading-relaxed">This project is a financial suicide mission. Your current human resources maturity cannot sustain the "Infinite Content" DNA required for the Mass Market battlefield.</p>
+                </div>
+                <div class="md:col-span-5 bg-white text-red-600 p-8 rounded shadow-2xl">
+                    <p class="label-mono text-red-400 italic mb-2">Diagnostic Conclusion:</p>
+                    <p class="text-xl font-black uppercase italic leading-tight">"Non-recoverable DNA-Resource Gap. Shut down production loop."</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white p-16 text-black text-center space-y-6 rounded">
+            <div class="max-w-3xl mx-auto space-y-4">
+                <h3 class="text-5xl font-black uppercase tracking-tighter italic">Fix the DNA. Save the Project.</h3>
+                <p class="text-lg text-gray-600 font-medium italic">Access the full diagnostic version for game production professionals.</p>
+            </div>
+            <div class="flex flex-col items-center gap-8 pt-4">
+                <button class="btn-unlock text-sm">Unlock Full Version — $29</button>
+                <button onclick="location.href='index.html'" class="text-xs font-black uppercase tracking-widest border-b-2 border-black pb-1 hover:text-purple-600 hover:border-purple-600 transition-all">Try Again</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="p-6 text-center border-t border-white/10 bg-black/90">
+        <div class="opacity-80 uppercase tracking-[1.2em] text-[10px] mono text-gray-400 font-bold">
+            Mental Audit & Diagnostic System // 2026
+        </div>
+    </footer>
+
+    <script>
+        // Starfield Logic (GỐC)
+        const starContainer = document.getElementById('starfield');
+        function createStar() {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const sizeVal = Math.random() * 5 + 2;
+            star.style.width = sizeVal + 'px'; star.style.height = sizeVal + 'px';
+            if(sizeVal > 5) star.style.filter = 'blur(1px)';
+            star.style.left = '50%'; star.style.top = '50%';
+            const angle = Math.random() * Math.PI * 2;
+            const xDir = Math.cos(angle); const yDir = Math.sin(angle);
+            const duration = (Math.random() * 4000 + 2000);
+            star.animate([
+                { transform: 'translate(-50%, -50%) translate(0, 0) scale(0)', opacity: 0 },
+                { opacity: 1, offset: 0.2 },
+                { transform: `translate(-50%, -50%) translate(${xDir * 110}vw, ${yDir * 110}vh) scale(1.5)`, opacity: 0 }
+            ], { duration: duration, iterations: Infinity, delay: Math.random() * 5000, easing: 'ease-in' });
+            starContainer.appendChild(star);
+        }
+        for (let i = 0; i < 150; i++) createStar();
+
+        // Chart Logic (GỐC)
+        const ctx = document.getElementById('auditChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Guess (Owner)', 'Reality (AI Audit)'],
+                datasets: [
+                    { label: 'Burn Rate ($K)', data: [235, 420], type: 'line', borderColor: '#ef4444', backgroundColor: 'rgba(239, 68, 68, 0.1)', fill: true, pointRadius: 6, order: 1, yAxisID: 'y1' },
+                    { label: 'Months', data: [18, 32], backgroundColor: '#A855F7', order: 2, barThickness: 50 }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { position: 'top', labels: { color: '#fff', font: { family: 'JetBrains Mono', size: 10 } } } },
+                scales: {
+                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#A855F7', font: { family: 'JetBrains Mono' } } },
+                    y1: { position: 'right', grid: { display: false }, ticks: { color: '#ef4444', font: { family: 'JetBrains Mono' } } },
+                    x: { ticks: { color: '#fff', font: { family: 'JetBrains Mono' } } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
