@@ -132,9 +132,9 @@
 						<div class="space-y-2" id="group-ge"><div class="flex justify-between text-[10px] mono uppercase text-white"><label>Genre *</label></div><input type="text" id="proj-genre" placeholder="e.g. Roguelike RPG" class="input-field mono" oninput="this.classList.remove('input-error')"></div>
                     </div>
                     <div class="grid md:grid-cols-3 gap-6 pt-10 text-left">
-                        <div><label class="text-[10px] mono text-white uppercase tracking-widest block mb-2">The Battlefield *</label><select id="battle" class="input-field mono" onchange="this.classList.remove('input-error')"><option value="None">None</option><option>Hardcore/Niche</option><option>Genre-specific</option><option>Mass Market</option></select></div>
-                        <div><label class="text-[10px] mono text-white uppercase tracking-widest block mb-2">The Monetization *</label><select id="monet" class="input-field mono" onchange="this.classList.remove('input-error')"><option value="None">None</option><option>Premium</option><option>Ad-based</option><option>IAP/Live-ops</option></select></div>
-                        <div><label class="text-[10px] mono text-white uppercase tracking-widest block mb-2">The Platform *</label><select id="plat" class="input-field mono" onchange="this.classList.remove('input-error')"><option value="None">None</option><option>PC</option><option>Console</option><option>Mobile</option><option>Cross-platform</option></select></div>
+                        <div><label class="text-[10px] mono text-white uppercase tracking-widest block mb-2">Market Size *</label><select id="battle" class="input-field mono" onchange="this.classList.remove('input-error')"><option value="None">None</option><option>Hardcore/Niche</option><option>Genre-specific</option><option>Mass Market</option></select></div>
+                        <div><label class="text-[10px] mono text-white uppercase tracking-widest block mb-2">Monetization Model *</label><select id="monet" class="input-field mono" onchange="this.classList.remove('input-error')"><option value="None">None</option><option>Premium</option><option>Ad-based</option><option>IAP/Live-ops</option></select></div>
+                        <div><label class="text-[10px] mono text-white uppercase tracking-widest block mb-2">Platform *</label><select id="plat" class="input-field mono" onchange="this.classList.remove('input-error')"><option value="None">None</option><option>PC</option><option>Console</option><option>Mobile</option><option>Cross-platform</option></select></div>
                     </div>
                 </div>
                 <div class="pt-8 flex justify-end gap-4">
@@ -246,7 +246,30 @@
             if (step > currentTab) {
                 let valid = true;
                 if (currentTab === 1) { ['proj-name', 'proj-time', 'user-role'].forEach(id => { const el = document.getElementById(id); if (!el.value) { el.classList.add('input-error'); valid = false; } }); }
-                if (currentTab === 2) { ['ch','pm','sl','rp','vf','cc','in','mp'].forEach(k => { if (document.getElementById(`sl-${k}`).value == 0) { document.getElementById(`group-${k}`).classList.add('slider-error'); valid = false; } }); if(!document.getElementById('proj-genre').value) { document.getElementById('proj-genre').classList.add('input-error'); valid = false; } ['battle', 'monet', 'plat'].forEach(id => { const el = document.getElementById(id); if (el.value === "None") { el.classList.add('input-error'); valid = false; } }); }
+                if (currentTab === 2) { // 1. Kiểm tra các thanh slider (từ 1-5, không được để bằng 0) ['ch','pm','sl','rp','vf','cc','in'].forEach(k => { if (document.getElementById(`sl-${k}`).value == 0) { document.getElementById(`group-${k}`).classList.add('slider-error'); 
+            valid = false; 
+        } 
+    });
+
+    // 2. Kiểm tra Genre (Input text không được rỗng)
+    const genreInput = document.getElementById('proj-genre');
+    if(!genreInput.value.trim()) { 
+        genreInput.classList.add('input-error'); 
+        valid = false; 
+    }
+
+    // 3. Kiểm tra các ô Select (Không được để giá trị "None")
+    // Lưu ý: ID phải khớp với HTML là 'battle', 'monet', 'plat'
+    ['battle', 'monet', 'plat'].forEach(id => { 
+        const el = document.getElementById(id); 
+        if (el.value === "None" || el.value === "") { 
+            el.classList.add('input-error'); 
+            valid = false; 
+        } 
+    });
+}
+
+http://googleusercontent.com/immersive_entry_chip/0
                 if (currentTab === 3) {
                     let roleSelected = false; roleData.forEach(r => { if(document.getElementById(`chk-${r.id}`).checked) { roleSelected = true; ['count-'+r.id, 'time-'+r.id].forEach(id => { if(!document.getElementById(id).value) { document.getElementById(id).classList.add('input-error'); valid = false; } }); if(document.getElementById('mat-'+r.id).value === "None") { document.getElementById('mat-'+r.id).classList.add('input-error'); valid = false; } } });
                     if(!roleSelected) { document.getElementById('group-hr-audit').classList.add('slider-error'); valid = false; }
