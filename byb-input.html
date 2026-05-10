@@ -246,30 +246,7 @@
             if (step > currentTab) {
                 let valid = true;
                 if (currentTab === 1) { ['proj-name', 'proj-time', 'user-role'].forEach(id => { const el = document.getElementById(id); if (!el.value) { el.classList.add('input-error'); valid = false; } }); }
-                if (currentTab === 2) { // 1. Kiểm tra các thanh slider (từ 1-5, không được để bằng 0) ['ch','pm','sl','rp','vf','cc','in'].forEach(k => { if (document.getElementById(`sl-${k}`).value == 0) { document.getElementById(`group-${k}`).classList.add('slider-error'); 
-            valid = false; 
-        } 
-    });
-
-    // 2. Kiểm tra Genre (Input text không được rỗng)
-    const genreInput = document.getElementById('proj-genre');
-    if(!genreInput.value.trim()) { 
-        genreInput.classList.add('input-error'); 
-        valid = false; 
-    }
-
-    // 3. Kiểm tra các ô Select (Không được để giá trị "None")
-    // Lưu ý: ID phải khớp với HTML là 'battle', 'monet', 'plat'
-    ['battle', 'monet', 'plat'].forEach(id => { 
-        const el = document.getElementById(id); 
-        if (el.value === "None" || el.value === "") { 
-            el.classList.add('input-error'); 
-            valid = false; 
-        } 
-    });
-}
-
-http://googleusercontent.com/immersive_entry_chip/0
+                if (currentTab === 2) { ['ch','pm','sl','rp','vf','cc','in','mp'].forEach(k => { if (document.getElementById(`sl-${k}`).value == 0) { document.getElementById(`group-${k}`).classList.add('slider-error'); valid = false; } }); if(!document.getElementById('proj-genre').value) { document.getElementById('proj-genre').classList.add('input-error'); valid = false; } ['battle', 'monet', 'plat'].forEach(id => { const el = document.getElementById(id); if (el.value === "None") { el.classList.add('input-error'); valid = false; } }); }
                 if (currentTab === 3) {
                     let roleSelected = false; roleData.forEach(r => { if(document.getElementById(`chk-${r.id}`).checked) { roleSelected = true; ['count-'+r.id, 'time-'+r.id].forEach(id => { if(!document.getElementById(id).value) { document.getElementById(id).classList.add('input-error'); valid = false; } }); if(document.getElementById('mat-'+r.id).value === "None") { document.getElementById('mat-'+r.id).classList.add('input-error'); valid = false; } } });
                     if(!roleSelected) { document.getElementById('group-hr-audit').classList.add('slider-error'); valid = false; }
