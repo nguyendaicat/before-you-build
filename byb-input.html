@@ -88,17 +88,18 @@
                         <input type="text" id="proj-name" placeholder="Project Name" class="input-field mono" oninput="this.classList.remove('input-error')">
                     </div>
                     <div class="flex flex-col gap-2 text-left">
-                        <label class="text-[10px] mono text-white uppercase tracking-widest">Est. Production Time (Months) *</label>
+                        <label class="text-[10px] mono text-white uppercase tracking-widest">Estimated Month *</label>
                         <input type="number" id="proj-time" onblur="if(this.value<1)this.value=1" oninput="this.classList.remove('input-error')" placeholder="12" class="input-field mono">
                     </div>
                 </div>
                 <div class="grid md:grid-cols-1 gap-8 pt-4">
                     <div class="flex flex-col gap-2 text-left">
-                        <label class="text-[10px] mono text-white uppercase tracking-widest">Your Role *</label>
+                        <label class="text-[10px] mono text-white uppercase tracking-widest">Your Role In The Project *</label>
                         <select id="user-role" class="input-field mono" onchange="this.classList.remove('input-error')">
                             <option value="" disabled selected>Select your role</option>
                             <option>Founder</option><option>Business/Product Owner</option><option>Investor</option>
-                            <option>Programmer</option><option>Game Designer</option><option>Other</option>
+                            <option>Programmer</option><option>Game Designer</option><option>Artist</option>
+							<option>Marketer</option><option>Others</option>
                         </select>
                     </div>
                     <div class="flex flex-col gap-2 text-left">
@@ -114,27 +115,26 @@
 
             <div id="step-2" class="hidden-step space-y-10">
                 <div class="group-container" id="group-dna-1">
-                    <h3 class="text-xs font-bold text-purple-400 uppercase tracking-[0.3em] mb-8 border-b border-purple-500/20 pb-2 text-left">I. DNA & Experience Indicators</h3>
+                    <h3 class="text-xs font-bold text-purple-400 uppercase tracking-[0.3em] mb-8 border-b border-purple-500/20 pb-2 text-left">I. DNA & Experience</h3>
                     <div class="grid md:grid-cols-2 gap-x-12 gap-y-10 text-left">
                         <div class="space-y-2" id="group-ch"><div class="flex justify-between text-[10px] mono uppercase text-white"><label>Content Hunger *</label><span id="val-ch" class="text-purple-400 font-bold">0</span></div><input type="range" min="0" max="5" value="0" id="sl-ch" oninput="updateDNA('ch', this.value)"><div id="desc-ch" class="desc-box mono italic">Please select value (1-5)</div></div>
                         <div class="space-y-2" id="group-pm"><div class="flex justify-between text-[10px] mono uppercase text-white"><label>Player Mastery *</label><span id="val-pm" class="text-purple-400 font-bold">0</span></div><input type="range" min="0" max="5" value="0" id="sl-pm" oninput="updateDNA('pm', this.value)"><div id="desc-pm" class="desc-box mono italic">Please select value (1-5)</div></div>
                         <div class="space-y-2" id="group-sl"><div class="flex justify-between text-[10px] mono uppercase text-white"><label>Session Length *</label><span id="val-sl" class="text-purple-400 font-bold">0</span></div><input type="range" min="0" max="5" value="0" id="sl-sl" oninput="updateDNA('sl', this.value)"><div id="desc-sl" class="desc-box mono italic">Please select value (1-5)</div></div>
                         <div class="space-y-2" id="group-rp"><div class="flex justify-between text-[10px] mono uppercase text-white"><label>Replayability *</label><span id="val-rp" class="text-purple-400 font-bold">0</span></div><input type="range" min="0" max="5" value="0" id="sl-rp" oninput="updateDNA('rp', this.value)"><div id="desc-rp" class="desc-box mono italic">Please select value (1-5)</div></div>
-                        <div class="space-y-2" id="group-in"><div class="flex justify-between text-[10px] mono uppercase text-white"><label>Innovation Level *</label><span id="val-in" class="text-purple-400 font-bold">0</span></div><input type="range" min="0" max="5" value="0" id="sl-in" oninput="updateDNA('in', this.value)"><div id="desc-in" class="desc-box mono italic">Please select value (1-5)</div></div>
                     </div>
                 </div>
                 <div class="group-container" id="group-dna-2">
-                    <h3 class="text-xs font-bold text-purple-400 uppercase tracking-[0.3em] mb-8 border-b border-purple-500/20 pb-2 text-left">II. Production & Market Complexity</h3>
+                    <h3 class="text-xs font-bold text-purple-400 uppercase tracking-[0.3em] mb-8 border-b border-purple-500/20 pb-2 text-left">II. Production & Market</h3>
                     <div class="grid md:grid-cols-2 gap-x-12 gap-y-10 text-left">
                         <div class="space-y-2" id="group-vf"><div class="flex justify-between text-[10px] mono uppercase text-white"><label>Visual Fidelity *</label><span id="val-vf" class="text-cyan-400 font-bold">0</span></div><input type="range" min="0" max="5" value="0" id="sl-vf" oninput="updateDNA('vf', this.value)"><div id="desc-vf" class="desc-box mono italic">Please select value (1-5)</div></div>
                         <div class="space-y-2" id="group-cc"><div class="flex justify-between text-[10px] mono uppercase text-white"><label>Code Complexity *</label><span id="val-cc" class="text-cyan-400 font-bold">0</span></div><input type="range" min="0" max="5" value="0" id="sl-cc" oninput="updateDNA('cc', this.value)"><div id="desc-cc" class="desc-box mono italic">Please select value (1-5)</div></div>
-                        <div class="space-y-2" id="group-mp"><div class="flex justify-between text-[10px] mono uppercase text-white"><label>Monetization Core *</label><span id="val-mp" class="text-cyan-400 font-bold">0</span></div><input type="range" min="0" max="5" value="0" id="sl-mp" oninput="updateDNA('mp', this.value)"><div id="desc-mp" class="desc-box mono italic">Please select value (1-5)</div></div>
+                        <div class="space-y-2" id="group-in"><div class="flex justify-between text-[10px] mono uppercase text-white"><label>Innovation Level *</label><span id="val-in" class="text-purple-400 font-bold">0</span></div><input type="range" min="0" max="5" value="0" id="sl-in" oninput="updateDNA('in', this.value)"><div id="desc-in" class="desc-box mono italic">Please select value (1-5)</div></div>
                         <div class="space-y-2" id="group-ge"><div class="flex justify-between text-[10px] mono uppercase text-white"><label>Genre *</label></div><input type="text" id="proj-genre" placeholder="e.g. Roguelike RPG" class="input-field mono" oninput="this.classList.remove('input-error')"></div>
                     </div>
                     <div class="grid md:grid-cols-3 gap-6 pt-10 text-left">
-                        <div><label class="text-[10px] mono text-white uppercase tracking-widest block mb-2">The Battlefield *</label><select id="battle" class="input-field mono" onchange="this.classList.remove('input-error')"><option value="None">None</option><option>Hardcore/Niche</option><option>Genre-specific</option><option>Mass Market</option></select></div>
-                        <div><label class="text-[10px] mono text-white uppercase tracking-widest block mb-2">The Monetization *</label><select id="monet" class="input-field mono" onchange="this.classList.remove('input-error')"><option value="None">None</option><option>Premium</option><option>Ad-based</option><option>IAP/Live-ops</option></select></div>
-                        <div><label class="text-[10px] mono text-white uppercase tracking-widest block mb-2">The Platform *</label><select id="plat" class="input-field mono" onchange="this.classList.remove('input-error')"><option value="None">None</option><option>PC</option><option>Console</option><option>Mobile</option><option>Cross-platform</option></select></div>
+                        <div><label class="text-[10px] mono text-white uppercase tracking-widest block mb-2">Market Size *</label><select id="battle" class="input-field mono" onchange="this.classList.remove('input-error')"><option value="None">None</option><option>Hardcore/Niche</option><option>Genre-specific</option><option>Mass Market</option></select></div>
+                        <div><label class="text-[10px] mono text-white uppercase tracking-widest block mb-2">Monetization Model *</label><select id="monet" class="input-field mono" onchange="this.classList.remove('input-error')"><option value="None">None</option><option>Premium</option><option>Ad-based</option><option>IAP/Live-ops</option></select></div>
+                        <div><label class="text-[10px] mono text-white uppercase tracking-widest block mb-2">Platform *</label><select id="plat" class="input-field mono" onchange="this.classList.remove('input-error')"><option value="None">None</option><option>PC</option><option>Console</option><option>Mobile</option><option>Cross-platform</option></select></div>
                     </div>
                 </div>
                 <div class="pt-8 flex justify-end gap-4">
@@ -210,7 +210,7 @@
 
     <!-- SCRIPT GỐC[cite: 4] -->
     <script>
-        const roleData = [{id: 'prog', name: 'Programmer'}, {id: 'des', name: 'Designer'}, {id: 'art', name: 'Artist'}, {id: 'test', name: 'Tester'}, {id: 'mkt', name: 'Marketing'}];
+        const roleData = [{id: 'prog', name: 'Programmer'}, {id: 'des', name: 'Designer'}, {id: 'art', name: 'Artist'}, {id: 'test', name: 'Tester'}, {id: 'mkt', name: 'Marketer'}];
         const container = document.getElementById('roles-container');
         roleData.forEach(r => {
             container.innerHTML += `<div class="grid grid-cols-12 gap-4 role-row inactive items-center" id="row-${r.id}">
@@ -222,7 +222,7 @@
             </div>`;
         });
 
-        const descriptions = { ch: ["Value not set", "One-trick Pony", "Boutique", "Solid Campaign", "Massive", "Infinite"], pm: ["Value not set", "Mindless Fun", "Easy to Learn", "Skill-based", "Hardcore", "Grandmaster"], sl: ["Value not set", "Micro", "Snack", "Standard", "Engaged", "Immersive"], rp: ["Value not set", "One-shot", "Linear", "Dynamic", "High/Roguelike", "Endless"], vf: ["Value not set", "Simple", "Clean Indie", "Professional", "High-end", "AAA"], cc: ["Value not set", "Static Logic", "System-driven", "Server-lite", "Complex MP", "Heavy Tech"], in: ["Value not set", "Clone", "Iteration", "Hybrid", "Innovative", "Breakthrough"], mp: ["Value not set", "None/Cosmetic", "Fair", "Standard", "Live-ops", "Aggressive"] };
+        const descriptions = { ch: ["Value not set", "One-trick Pony: Single loop. Focus on one mechanic", "Boutique: 10-20h. Handcrafted quality", "Solid Campaign: Long levels. High LD pipeline pressure", "Massive: 100+ assets. Procedural or large team", "Infinite: Live-ops beast. Weekly content updates"], pm: ["Value not set", "Mindless Fun: One-button. Zero barrier", "Easy to Learn: Low friction. Simple loops", "Skill-based: Needs practice. Clear meta-game", "Hardcore: Deep focus. Mastery demanded", "Grandmaster: World-class depth and competition"], sl: ["Value not set", "Micro (30s-2m): Instant dopamine hit", "Snack (3m-5m): Quick, satisfying loop", "Standard (10m-15m): Solid pacing required", "Engaged (20m-40m): Deep systems needed", "Immersive (1h+): High fatigue risk"], rp: ["Value not set", "One-shot: High churn. Need new users", "Linear: Fixed path. Low replay value", "Dynamic: 2-3 playthroughs expected", "Roguelike: Deep system-driven content", "Endless: Competing for player's lifestyle"], vf: ["Value not set", "Simple: Shapes/Symbols. Zero art friction", "Clean Indie: Stylized. Taste over tech", "Professional: Market standard. Polished", "High-end: Dedicated art team required", "AAA: World-class. Extreme production cost"], cc: ["Value not set", "Static Logic: Offline. Simple state machines", "System-driven: Solid architecture needed", "Server-lite: Cloud data. Backend required", "Complex MP: Real-time. High tech-debt risk", "Heavy Tech: Massive scale. Senior engineering"], in: ["Value not set", "Clone: Pure copy. Fast to build, hard to stand out", "Iteration: Small tweaks. Familiar feel, safer market", "Hybrid: Genre mashup. Fresh experience, high design risk", "Innovative: New mechanics. Unique hook, needs long R&D", "Breakthrough: Industry-shifter. Blue ocean, high fail"] };
 
         function toggleRole(role) {
             const isChecked = document.getElementById(`chk-${role}`).checked;
@@ -246,7 +246,7 @@
             if (step > currentTab) {
                 let valid = true;
                 if (currentTab === 1) { ['proj-name', 'proj-time', 'user-role'].forEach(id => { const el = document.getElementById(id); if (!el.value) { el.classList.add('input-error'); valid = false; } }); }
-                if (currentTab === 2) { ['ch','pm','sl','rp','vf','cc','in','mp'].forEach(k => { if (document.getElementById(`sl-${k}`).value == 0) { document.getElementById(`group-${k}`).classList.add('slider-error'); valid = false; } }); if(!document.getElementById('proj-genre').value) { document.getElementById('proj-genre').classList.add('input-error'); valid = false; } ['battle', 'monet', 'plat'].forEach(id => { const el = document.getElementById(id); if (el.value === "None") { el.classList.add('input-error'); valid = false; } }); }
+                if (currentTab === 2) { ['ch','pm','sl','rp','vf','cc','in'].forEach(k => { if (document.getElementById(`sl-${k}`).value == 0) { document.getElementById(`group-${k}`).classList.add('slider-error'); valid = false; } }); if(!document.getElementById('proj-genre').value) { document.getElementById('proj-genre').classList.add('input-error'); valid = false; } ['battle', 'monet', 'plat'].forEach(id => { const el = document.getElementById(id); if (el.value === "None") { el.classList.add('input-error'); valid = false; } }); }
                 if (currentTab === 3) {
                     let roleSelected = false; roleData.forEach(r => { if(document.getElementById(`chk-${r.id}`).checked) { roleSelected = true; ['count-'+r.id, 'time-'+r.id].forEach(id => { if(!document.getElementById(id).value) { document.getElementById(id).classList.add('input-error'); valid = false; } }); if(document.getElementById('mat-'+r.id).value === "None") { document.getElementById('mat-'+r.id).classList.add('input-error'); valid = false; } } });
                     if(!roleSelected) { document.getElementById('group-hr-audit').classList.add('slider-error'); valid = false; }
