@@ -262,7 +262,62 @@
 
         function showConfirm() { let riskSelected = document.querySelector('.risk-card.selected'); if(!riskSelected) { document.getElementById('group-bottleneck').classList.add('slider-error'); return; } document.getElementById('confirm-modal').classList.remove('hidden'); }
         function hideConfirm() { document.getElementById('confirm-modal').classList.add('hidden'); }
-        function executeDiagnostic() { window.location.href = 'byb-processing.html'; }
+        function executeDiagnostic() {
+		    // 1. Thu thập dữ liệu từ Step 1 & 2
+		    const formData = {
+		        projName: document.getElementById('proj-name').value,
+		        projGenre: document.getElementById('proj-genre').value,
+		        userRole: document.getElementById('user-role').value,
+		        
+		        // Data từ Sliders (DNA)
+		        contentHunger: parseInt(document.getElementById('sl-ch').value),
+		        playerMastery: parseInt(document.getElementById('sl-pm').value),
+		        sessionLength: parseInt(document.getElementById('sl-sl').value),
+		        replayability: parseInt(document.getElementById('sl-rp').value),
+		        visualFidelity: parseInt(document.getElementById('sl-vf').value),
+		        codeComplexity: parseInt(document.getElementById('sl-cc').value),
+		        innovationLevel: parseInt(document.getElementById('sl-in').value),
+		        
+		        // Dropdowns
+		        battlefield: document.getElementById('battle').value,
+		        monetization: document.getElementById('monet').value,
+		        platform: document.getElementById('plat').value,
+		        
+		        // User Estimates
+		        userEstMonth: parseFloat(document.getElementById('proj-time').value) || 0,
+		        userBudget: parseFloat(document.getElementById('proj-budget')?.value) || 0, // Thêm dấu ? nếu ID có thể thay đổi
+		        
+		        // HR Audit (Lấy data từ các checkbox role đang active)
+		        roles: {},
+		        complexityUnit: parseFloat(document.getElementById('comp-unit').value) || 40,
+		        
+		        // Risk
+		        selectedRisk: document.querySelector('.risk-card.selected')?.innerText.trim() || "Unknown"
+		    };
+		
+		    // 2. Thu thập dữ liệu Team Roles
+		    roleData.forEach(r => {
+		        const isChecked = document.getElementById(`chk-${r.id}`).checked;
+		        if (isChecked) {
+		            formData.roles[r.id] = {
+		                count: parseInt(document.getElementById(`count-${r.id}`).value) || 0,
+		                maturity: document.getElementById(`mat-${r.id}`).value.toLowerCase(),
+		                hours: parseFloat(document.getElementById(`time-${r.id}`).value) || 0
+		            };
+		        }
+		    });
+		
+		    // 3. Tính tổng số giờ làm việc của toàn team mỗi tuần
+		    formData.totalWeeklyHours = Object.values(formData.roles).reduce((sum, role) => {
+		        return sum + (role.count * role.hours);
+		    }, 0);
+		
+		    // 4. LƯU VÀO LOCAL STORAGE
+		    localStorage.setItem('byb_project_data', JSON.stringify(formData));
+		
+		    // 5. Chuyển sang trang xử lý
+		    window.location.href = 'byb-processing.html';
+		}
     </script>
 
     <!-- STAR ENGINE[cite: 4] -->
